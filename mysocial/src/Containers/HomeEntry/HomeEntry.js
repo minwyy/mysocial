@@ -150,13 +150,21 @@ class HomeEntry extends Component {
         for (let formElement in this.state.orderForm) {
             formData[formElement] = this.state.orderForm[formElement].value;
         };
-        formData['Date'] = Number(new Date().getFullYear().toString() + (new Date().getMonth() + 1).toString() + new Date().getDate().toString());
+        let month = new Date().getMonth() + 1;
+        if (month < 10) {
+            month = '0' + month.toString();
+        } else {
+            month = month.toString();
+        }
+
+        formData['Date'] = Number(new Date().getFullYear().toString() + month + new Date().getDate().toString());
         // console.log(new Date().get());
 
         axios.post('/data.json', formData)
         .then (response => {
             this.setState({loading: false});
-            this.props.history.push('/')
+            // this.props.history.push('/')
+            alert('Successfully recorded! Keep up your good work!');
         })
         .catch(error => {
             this.setState({loading: false})
