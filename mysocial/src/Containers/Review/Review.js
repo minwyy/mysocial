@@ -33,7 +33,7 @@ class Review extends Component {
                 <SingleEntryReview id={eachEntry.id}
                     entries={eachEntry} />
                 ))}
-        </React.Fragment>
+            </React.Fragment>
         )
         if (this.state.loading) {
             reviewOutput = <Spinner />;

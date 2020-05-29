@@ -1,5 +1,5 @@
 import React from 'react';
-// import classes from './SingleEntryReview.css';
+import classes from './SingleEntryReview.css';
 
 const SingleEntryReview = (props) => {
     const entries = [];
@@ -23,7 +23,7 @@ const SingleEntryReview = (props) => {
     ))
 
     return(
-    <div>
+    <div className={classes.SingleReview}>
         {entriesOutput}
     </div>
     )
