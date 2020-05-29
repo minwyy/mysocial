@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import axios from '../../axios-orders';
 import SingleEntryReview from '../../Components/SingleEntryReview/SingleEntryReview';
@@ -10,7 +11,8 @@ class Review extends Component {
         loading: true
     }
     componentDidMount () {
-        axios.get('/data.json')
+        const queryParams = '?auth=' + this.props.token;
+        axios.get('/data.json' + queryParams)
         .then( res => {
             // console.log(res.data)
             const fetchedData = [];
@@ -47,4 +49,10 @@ class Review extends Component {
     }
 }
 
-export default Review;
+const mapStateToProps = state => {
+    return {
+        token: state.token,
+    }
+}
+
+export default connect(mapStateToProps) (Review);
