@@ -4,6 +4,8 @@ import Button from '../../Components/UI/Button/Button';
 import Input from '../../Components/UI/Input/Input';
 import Spinner from '../../Components/UI/Spinner/Spinner';
 
+import classes from './HomeEntry.css';
+
 class HomeEntry extends Component {
     state = {
         orderForm: {
@@ -14,6 +16,7 @@ class HomeEntry extends Component {
                     {value: 'no', displayValue: 'no'}]
                 },
                 value: 'yes',
+                label: 'initiated by me?',
                 valid: true,
                 validation: {}
             },
@@ -27,6 +30,7 @@ class HomeEntry extends Component {
                 ]
                 },
                 value: 'for fun',
+                label: 'motivation',
                 valid: true,
                 validation: {}
             },
@@ -40,6 +44,7 @@ class HomeEntry extends Component {
                 ]
                 },
                 value: '1',
+                label: 'how many guys',
                 valid: true,
                 validation: {}
             },
@@ -50,6 +55,7 @@ class HomeEntry extends Component {
                     placeholder: 'names'
                 },
                 value: '',
+                label: 'main persons to engage',
                 validation: {
                     required: true
                 },
@@ -63,6 +69,7 @@ class HomeEntry extends Component {
                     placeholder: 'place'
                 },
                 value: '',
+                label: 'main event place',
                 validation: {
                     required: true
                 },
@@ -79,6 +86,7 @@ class HomeEntry extends Component {
                 ]
                 },
                 value: 'less than 1 hr',
+                label: 'duration',
                 valid: true,
                 validation: {}
             },
@@ -90,6 +98,7 @@ class HomeEntry extends Component {
                 ]
                 },
                 value: 'no',
+                label: 'gold?',
                 valid: true,
                 validation: {}
             },
@@ -101,6 +110,7 @@ class HomeEntry extends Component {
                 ]
                 },
                 value: 'yes',
+                label: 'rice?',
                 valid: true,
                 validation: {}
             },
@@ -112,6 +122,7 @@ class HomeEntry extends Component {
                 ]
                 },
                 value: 'yes',
+                label: 'good ending?',
                 valid: true,
                 validation: {}
             },
@@ -122,6 +133,7 @@ class HomeEntry extends Component {
                     placeholder: 'comment'
                 },
                 value: '',
+                label: 'comments',
                 validation: {},
                 valid: true,
                 touched: false
@@ -137,9 +149,9 @@ class HomeEntry extends Component {
         const formData = {};
         for (let formElement in this.state.orderForm) {
             formData[formElement] = this.state.orderForm[formElement].value;
-        }
-        // console.log(formData);
-
+        };
+        formData['Date'] = Number(new Date().getFullYear().toString() + (new Date().getMonth() + 1).toString() + new Date().getDate().toString());
+        // console.log(new Date().get());
 
         axios.post('/data.json', formData)
         .then (response => {
@@ -196,15 +208,16 @@ class HomeEntry extends Component {
         <React.Fragment>
             <form>
                 {formElementsArray.map(forElement => (
-                    <Input 
-                        key={forElement.id}
-                        elementType={forElement.config.elementType}
-                        elementConfig={forElement.config.elementConfig}
-                        value={forElement.config.value}
-                        invalid={!forElement.config.valid}
-                        touched={forElement.config.touched}
-                        shouldValidation={forElement.config.validation}
-                        change={(event) => (this.inputChangeHandler(event, forElement.id))} />
+                        <Input 
+                            key={forElement.id}
+                            elementType={forElement.config.elementType}
+                            elementConfig={forElement.config.elementConfig}
+                            value={forElement.config.value}
+                            label={forElement.config.label}
+                            invalid={!forElement.config.valid}
+                            touched={forElement.config.touched}
+                            shouldValidation={forElement.config.validation}
+                            change={(event) => (this.inputChangeHandler(event, forElement.id))} />
                 ))}
             </form>
             <Button btnType='Success' clicked={this.orderHandler} disabled={!this.state.formIsValid}>Order</Button>
@@ -215,7 +228,7 @@ class HomeEntry extends Component {
         } 
 
         return(
-            <div>
+            <div className={classes.HomeEntry}>
             <h4>fill it up</h4>
             {form}
         </div>
