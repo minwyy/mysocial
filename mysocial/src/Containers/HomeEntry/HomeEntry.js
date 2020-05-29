@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
 import axios from '../../axios-orders';
 import Button from '../../Components/UI/Button/Button';
 import Input from '../../Components/UI/Input/Input';
 import Spinner from '../../Components/UI/Spinner/Spinner';
+import { authCheckLocal } from '../../store/actions';
 
 import classes from './HomeEntry.css';
 
@@ -140,8 +143,13 @@ class HomeEntry extends Component {
             }},
         formIsValid: false,
         loading: false
-    
-}
+    }
+
+    componentDidMount () {
+        if (!this.props.isAuthenticated) {
+        this.props.checkLocal();
+        }
+    }
 
     orderHandler = ( e ) => {
         // e.preventDefault();
@@ -228,7 +236,7 @@ class HomeEntry extends Component {
                             change={(event) => (this.inputChangeHandler(event, forElement.id))} />
                 ))}
             </form>
-            <Button btnType='Success' clicked={this.orderHandler} disabled={!this.state.formIsValid}>Order</Button>
+            <Button btnType='Success' clicked={this.orderHandler} disabled={!this.state.formIsValid}>Submit</Button>
         </React.Fragment>
         );
         if (this.props.loading) {
@@ -244,4 +252,16 @@ class HomeEntry extends Component {
     }
 }
 
-export default HomeEntry;
+const mapStateToProps = state => {
+    return {
+        isAuthenticated: state.token !== null,
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        checkLocal: () => dispatch(authCheckLocal()),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps) (HomeEntry);

@@ -30,7 +30,7 @@ class Review extends Component {
         let reviewOutput = (
             <React.Fragment>
             {this.state.entries.map(eachEntry => (
-                <SingleEntryReview id={eachEntry.id}
+                <SingleEntryReview key={eachEntry.id}
                     entries={eachEntry} />
                 ))}
             </React.Fragment>
