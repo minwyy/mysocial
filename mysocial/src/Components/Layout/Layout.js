@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-
+import NavigationItems from '../NavigationItems/NavigationItems';
 
 class Layout extends Component {
 render() {
     return (
         <React.Fragment>
-        <h1>Laaayoouut</h1>
+        <NavigationItems />
         <main>
         {this.props.children}
         </main>

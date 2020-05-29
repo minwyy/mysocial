@@ -237,7 +237,7 @@ class HomeEntry extends Component {
 
         return(
             <div className={classes.HomeEntry}>
-            <h4>fill it up</h4>
+            <h4>Another day another friend!</h4>
             {form}
         </div>
         )
