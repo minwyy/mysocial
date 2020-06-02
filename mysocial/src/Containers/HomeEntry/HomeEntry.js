@@ -19,7 +19,7 @@ class HomeEntry extends Component {
                     {value: 'no', displayValue: 'no'}]
                 },
                 value: 'yes',
-                label: 'initiated by me?',
+                label: 'Initiated by me?',
                 valid: true,
                 validation: {}
             },
@@ -29,11 +29,12 @@ class HomeEntry extends Component {
                     options: [{value: 'get help', displayValue: 'get help'},
                     {value: 'help others', displayValue: 'help others'}, 
                     {value: 'mutual benefits', displayValue: 'mutual benefits'},
+                    {value: 'return favors', displayValue: 'return favors'},
                     {value: 'for fun', displayValue: 'for fun'}
                 ]
                 },
                 value: 'for fun',
-                label: 'motivation',
+                label: 'Motivation',
                 valid: true,
                 validation: {}
             },
@@ -47,7 +48,7 @@ class HomeEntry extends Component {
                 ]
                 },
                 value: '1',
-                label: 'how many guys',
+                label: 'How many guys',
                 valid: true,
                 validation: {}
             },
@@ -58,7 +59,7 @@ class HomeEntry extends Component {
                     placeholder: 'names'
                 },
                 value: '',
-                label: 'main persons to engage',
+                label: 'Main persons to engage',
                 validation: {
                     required: true
                 },
@@ -72,7 +73,7 @@ class HomeEntry extends Component {
                     placeholder: 'place'
                 },
                 value: '',
-                label: 'main event place',
+                label: 'Main event place',
                 validation: {
                     required: true
                 },
@@ -89,7 +90,7 @@ class HomeEntry extends Component {
                 ]
                 },
                 value: 'less than 1 hr',
-                label: 'duration',
+                label: 'Duration',
                 valid: true,
                 validation: {}
             },
@@ -101,7 +102,7 @@ class HomeEntry extends Component {
                 ]
                 },
                 value: 'no',
-                label: 'gold?',
+                label: 'Gold?',
                 valid: true,
                 validation: {}
             },
@@ -113,7 +114,7 @@ class HomeEntry extends Component {
                 ]
                 },
                 value: 'yes',
-                label: 'rice?',
+                label: 'Rice?',
                 valid: true,
                 validation: {}
             },
@@ -125,7 +126,7 @@ class HomeEntry extends Component {
                 ]
                 },
                 value: 'yes',
-                label: 'good ending?',
+                label: 'Good ending?',
                 valid: true,
                 validation: {}
             },
@@ -136,7 +137,7 @@ class HomeEntry extends Component {
                     placeholder: 'comment'
                 },
                 value: '',
-                label: 'comments',
+                label: 'Comments',
                 validation: {},
                 valid: true,
                 touched: false
@@ -164,8 +165,14 @@ class HomeEntry extends Component {
         } else {
             month = month.toString();
         }
+        let date = new Date().getDate();
+        if (date < 10) {
+            date = '0' + date.toString();
+        } else {
+            date = date.toString();
+        }
 
-        formData['Date'] = Number(new Date().getFullYear().toString() + month + new Date().getDate().toString());
+        formData['Date'] = Number(new Date().getFullYear().toString() + month + date);
         // console.log(new Date().get());
 
         axios.post('/data.json', formData)
@@ -245,7 +252,7 @@ class HomeEntry extends Component {
 
         return(
             <div className={classes.HomeEntry}>
-            <h4>Another day another friend!</h4>
+            <h4>Another day another meetup!</h4>
             {form}
         </div>
         )
