@@ -4,12 +4,33 @@ import { connect } from 'react-redux';
 import axios from '../../axios-orders';
 // import SingleEntryReview from '../../Components/SingleEntryReview/SingleEntryReview';
 import Spinner from '../../Components/UI/Spinner/Spinner';
+import Button from '../../Components/UI/Button/Button';
 
 class Review extends Component {
     state = {
         entries: [],
+        label: ['Initiated by me?', 'Date', 'Motivation', 'How many guys', 'Main persons to engage', 'Main event place', 'Duration',
+        'Gold?', 'Rice?', 'Good ending?', 'Comments'],
         loading: true
     }
+
+
+    sortHandler = (props) => {
+        if (props === '1') {
+            console.log(props);         
+            this.setState((prevState) => {
+            return {entries: prevState.entries.sort((a, b) => a[props] - b[props])}
+        })}
+        else {
+            console.log(props);  
+            this.setState((prevState) => {
+            return {entries: prevState.entries.sort((a, b) => a[props].localeCompare(b[props]))}
+            })
+        }
+
+    }
+
+
     componentDidMount () {
         const queryParams = '?auth=' + this.props.token;
         axios.get('/data.json' + queryParams)
@@ -25,7 +46,7 @@ class Review extends Component {
                 fetchedData.push(fetchedData2);
             }
             // console.log(fetchedData);
-            // fetchedData.sort((a, b) => a.MainPersons.localeCompare(b.MainPersons));
+            // fetchedData.sort((a, b) => a[3].localeCompare(b[3]));
             this.setState({loading: false, entries: fetchedData});
             })
             .catch( err => {this.setState({loading: false});
@@ -41,9 +62,17 @@ class Review extends Component {
         //         ))} */}
         //     </React.Fragment>
         // )
+        const SortBar = [];
+        for (let e in this.state.label) {
+            SortBar.push(
+            <Button btnType='Sort' clicked={this.sortHandler} index={e} key={e}>{this.state.label[e]}</Button>)
+        }
 
-        let resultHtml = "<table border=1>";
-        resultHtml += "<tr><td>Initiated by me?</td><td>Date</td><td>Motivation</td><td>How many guys</td><td>Main persons to engage</td><td>Main event place</td><td>Duration</td><td>Gold?</td><td>Rice?</td><td>Good ending?</td><td>Comments</td></tr>"
+        let resultHtml = "<table border=1> <tr>";
+        for (let e in this.state.label) {
+            resultHtml += "<td>" + this.state.label[e] + "</td>"; 
+        }
+        resultHtml += "</tr>"
         for(let i=0; i<this.state.entries.length; i++) {
             // console.log(this.state.entries[i]);
             resultHtml += "<tr>";
@@ -63,7 +92,8 @@ class Review extends Component {
         }
         return (
             <div>
-              {result}
+                {SortBar}
+                {result}
             </div>
         )
     }

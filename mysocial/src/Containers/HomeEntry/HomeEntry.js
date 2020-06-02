@@ -152,7 +152,7 @@ class HomeEntry extends Component {
         }
     }
 
-    orderHandler = ( e ) => {
+    submitHandler = ( e ) => {
         // e.preventDefault();
 
         const formData = {};
@@ -243,7 +243,7 @@ class HomeEntry extends Component {
                             change={(event) => (this.inputChangeHandler(event, forElement.id))} />
                 ))}
             </form>
-            <Button btnType='Success' clicked={this.orderHandler} disabled={!this.state.formIsValid}>Submit</Button>
+            <Button clicked={this.submitHandler} disabled={!this.state.formIsValid}>Submit</Button>
         </React.Fragment>
         );
         if (this.props.loading) {

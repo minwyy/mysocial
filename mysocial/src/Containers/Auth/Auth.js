@@ -114,7 +114,7 @@ class Auth extends Component {
                 <form>
                     {form}
                 </form>
-                <Button btnType="Success" clicked={this.submitHandler} >Submit</Button>
+                <Button clicked={this.submitHandler} >Submit</Button>
             </div>
         )
     }

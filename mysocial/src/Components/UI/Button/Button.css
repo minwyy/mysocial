@@ -21,3 +21,10 @@
     background-color: rgb(23, 23, 184);
     color: white;
   }
+
+.Sort {
+    padding: 15px 5px;
+    border: 1px solid rgb(47, 47, 194);
+    font-weight: 500;
+    font-size: 11px
+}
