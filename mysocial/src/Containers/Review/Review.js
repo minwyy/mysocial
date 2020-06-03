@@ -16,13 +16,11 @@ class Review extends Component {
 
 
     sortHandler = (props) => {
-        if (props === '1') {
-            console.log(props);         
+        if (props === '1') {    
             this.setState((prevState) => {
             return {entries: prevState.entries.sort((a, b) => a[props] - b[props])}
         })}
         else {
-            console.log(props);  
             this.setState((prevState) => {
             return {entries: prevState.entries.sort((a, b) => a[props].localeCompare(b[props]))}
             })
